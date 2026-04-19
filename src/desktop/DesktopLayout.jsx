@@ -1,45 +1,59 @@
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import appComponentStates from "./AppComponentStates";
 import HeaderDesktop from "./HeaderDesktop";
 import HelperSidebar from "./HelperSidebar";
 import MainSidebar from "./MainSidebar";
 
-const DesktopLayout = () => {
+const DesktopLayout = ({
+
+  isBulgarian,
+  setIsBulgarian,
+  mobileStyle,
+  setMobileStyle,
+  currentComponent,
+  setCurrentComponent
+}) => {
 
     const [helperSidebarShown, setHelperSidebarShown] = useState(false); 
-    const [currentComponent, setCurrentComponent] = useState(appComponentStates.Home); 
-    // const [helperBarItems, setHelperBarItems] = useState([]);
-1     
+    const [helperSidebarChosen, setHelperSidebarChosen] = useState(null);
+     
     return (
         <>        
-
-        <div className="d-flex flex-column vh-100" > {/*style={{backgroundColor: */}
-            <HeaderDesktop  />  
+        
+        <div className="d-flex flex-column vh-100" >
+            <HeaderDesktop isBulgarian={isBulgarian} setIsBulgarian={setIsBulgarian} />  
 
             <Container fluid className="flex-grow-1 d-flex">
                 <Row className="flex-grow-1 w-100 my-0">
 
                     <Col xs={2}>
                         <MainSidebar 
+                            isBulgarian={isBulgarian}
                             setHelperShown={setHelperSidebarShown} 
-                            currentComponent={setCurrentComponent}
+                            mobileStyle={mobileStyle}
+                            setMobileStyle={setMobileStyle}
+                            currentComponent={currentComponent}
+                            setCurrentComponent={setCurrentComponent}
                             />
                     </Col>
 
                     {
                         helperSidebarShown === true 
-                        ? <Col className="p-2" xs={3}>
-                            <Container className="border border-secondary-subtle rounded w-100 h-100" >
-                                <HelperSidebar />
+                        ? <Col className="mt-0" xs={3}>
+                            <Container className="border border-secondary-subtle w-100 h-100" >
+                                <HelperSidebar 
+                                    setHelperSidebarChosen={setHelperSidebarChosen}
+                                    currentComponent={currentComponent}
+                                    />
                             </Container>
                         </Col> 
                         : null
                     }                    
 
-                    <Col className="p-2" xs={helperSidebarShown === true ? 7 : 10}>
-                        <Container className="border border-secondary-subtle rounded w-100 h-100">
+                    <Col className="mt-0" xs={helperSidebarShown === true ? 7 : 10}>
+                        <Container className="border border-secondary-subtle  w-100 h-100">
                             {/**primary component is here */}
+                            AAAAA
                         </Container>
                     </Col>
 

@@ -1,0 +1,7 @@
+.flag-btn img {
+    transition: filter 0.2s ease;
+}
+
+.flag-btn:hover img {
+    filter: brightness(0.7);
+}

@@ -1,17 +1,11 @@
-import appComponentStates from "./AppComponentStates";
+import appComponentStates from "../appComponentStates";
 
-const HelperSidebar = ({currentComponent, setChosenSubComponent}) => {
+const HelperSidebar = ({setHelperSidebarChosen, currentComponent}) => {
     return (
         <div>
-           {currentComponent === appComponentStates.Home && <p>asd</p>}
+           { currentComponent === appComponentStates.Friends && <p></p> }
         </div>
     )
 }
 
 export default HelperSidebar;
-
-//<div> {
-// contents.map((item, i) => (
-//         <div key={i}>{item}</div>
-// ))}
-// </div>
