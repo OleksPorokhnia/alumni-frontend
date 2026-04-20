@@ -72,7 +72,7 @@ const LoginElement = ({
 
                             <input
                                 type="login"
-                                className="form-control sidebar-input"
+                                className="form-control sidebar-input mt-5"
                                 placeholder={isBulgarian ? "Потребителско име" : "Login"}
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
