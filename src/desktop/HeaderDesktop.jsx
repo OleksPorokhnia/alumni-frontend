@@ -1,9 +1,12 @@
 import { Button, Container, Navbar } from "react-bootstrap";
 import "../style/header-desktop.css";
+import { logout } from "../utils/axiosApi";
 
 const HeaderDesktop = ({
     isBulgarian,
-    setIsBulgarian
+    setIsBulgarian,
+    isLoggedIn,
+    setIsLoggedIn
 }) => {
 
     return (
@@ -68,15 +71,23 @@ const HeaderDesktop = ({
                     }}
                 />
             </button>
-
-        <Navbar.Text style={{fontSize: "85%"}}>
-            {isBulgarian ? "Здравейте, " : "Hello, "}
-            {"user name should be here"}
-        </Navbar.Text>
-        <Button variant="link" style={{fontSize: "85%"}}>
-            {/* Log in/out check should be passed here */ }
-            {isBulgarian ? "(Влизане)" : "(Log in)"}
-        </Button>
+        { isLoggedIn ? 
+            <>
+                <Navbar.Text style={{fontSize: "85%"}}>
+                    {isBulgarian ? "Здравейте, " : "Hello, "}
+                    {"user name should be here"}
+                </Navbar.Text>
+                <Button onClick={() => {
+                    logout();
+                    setIsLoggedIn(false);
+                }} variant="link" style={{fontSize: "85%"}}>
+                    {isBulgarian ? "(Излизане от профила)" : "(Log out)"}
+                </Button> 
+            </>
+        : null
+        
+        }
+        
         </div>
 
         </Container>

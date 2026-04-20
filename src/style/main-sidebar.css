@@ -20,7 +20,8 @@
 
 /* ICON */
 .sidebar-btn .icon {
-    height: 20px;
+    height: 2vh;
+    width: auto;
     margin-top: 2%;
     margin-bottom: 2%;
     margin-right: 5%;
@@ -48,10 +49,10 @@
 /* active button background */
 .sidebar-btn.desktop.active {
     background-color: rgb(38, 86, 130);
-    color: white; /* optional, improves contrast */
+    color: white; 
 }
 
-/* 🔥 FIX: animate on hover */
+
 /* default hover (non-active only) */
 .sidebar-btn.desktop:not(.active):hover {
     background-color: rgb(56,135,199);
@@ -63,7 +64,7 @@
     color: white;
 }
 
-/* 🔥 key fix: active hover stays the SAME */
+
 .sidebar-btn.desktop.active:hover {
     background-color: rgb(38, 86, 130);
 }
@@ -85,7 +86,6 @@
     background: rgb(38, 86, 130);
 }
 
-/* ===== MOBILE STYLE ===== */
 /* default mobile text */
 .sidebar-btn.mobile {
     color: rgb(17,85,131);

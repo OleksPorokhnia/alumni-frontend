@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import HeaderDesktop from "./HeaderDesktop";
 import HelperSidebar from "./HelperSidebar";
+import LoginElement from "./LoginElement";
 import MainSidebar from "./MainSidebar";
 
 const DesktopLayout = ({
@@ -11,18 +12,20 @@ const DesktopLayout = ({
   mobileStyle,
   setMobileStyle,
   currentComponent,
-  setCurrentComponent
+  setCurrentComponent,
+  isLoggedIn,
+  setIsLoggedIn
 }) => {
 
     const [helperSidebarShown, setHelperSidebarShown] = useState(false); 
     const [helperSidebarChosen, setHelperSidebarChosen] = useState(null);
-     
+    
     return (
         <>        
         
         <div className="d-flex flex-column vh-100" >
-            <HeaderDesktop isBulgarian={isBulgarian} setIsBulgarian={setIsBulgarian} />  
-
+            <HeaderDesktop isBulgarian={isBulgarian} setIsBulgarian={setIsBulgarian} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>  
+            {isLoggedIn ? 
             <Container fluid className="flex-grow-1 d-flex">
                 <Row className="flex-grow-1 w-100 my-0">
 
@@ -53,12 +56,14 @@ const DesktopLayout = ({
                     <Col className="mt-0" xs={helperSidebarShown === true ? 7 : 10}>
                         <Container className="border border-secondary-subtle  w-100 h-100">
                             {/**primary component is here */}
-                            AAAAA
+                            AAAAAИИИИ
                         </Container>
                     </Col>
 
                 </Row>
-            </Container>
+            </Container> : 
+            
+            <LoginElement isBulgarian={isBulgarian} setIsLoggedIn={setIsLoggedIn}/>}
         </div>
 
         </>

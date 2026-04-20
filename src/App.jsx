@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import appComponentStates from "./appComponentStates";
 import DesktopLayout from './desktop/DesktopLayout';
+import { checkAuth } from './utils/axiosApi';
 
 function App() {
   const [isBulgarian, setIsBulgarian] = useState(true);
@@ -10,35 +11,29 @@ function App() {
   const [loadingAuth, setLoadingAuth] = useState(true);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        await api.get("/auth/me"); // backend checks cookie
-        setIsLoggedIn(true);
-      } catch (err) {
-        setIsLoggedIn(false);
-      } finally {
-        setLoadingAuth(false);
-      }
-    };
+    const verify = async () => {
+    const result = await checkAuth(); // true or false
+    setIsLoggedIn(result);
+    setLoadingAuth(false);
+  };
 
-    checkAuth();
+  verify();
   }, []);
 
-  if (loadingAuth) {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <DesktopLayout
+  return (<>
+     {loadingAuth ? 
+      isBulgarian ? <div>Моля изчакайте</div> : <div>Please wait</div> 
+      : <DesktopLayout
       isBulgarian={isBulgarian}
       setIsBulgarian={setIsBulgarian}
       mobileStyle={mobileStyle}
       setMobileStyle={setMobileStyle}
       currentComponent={currentComponent}
       setCurrentComponent={setCurrentComponent}
-      isLoggedIn={isLoggedIn} // pass it down
+      isLoggedIn={isLoggedIn} 
       setIsLoggedIn={setIsLoggedIn}
-    />
+    />}
+    </>
   );
 }
 

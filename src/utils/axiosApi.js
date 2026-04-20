@@ -1,25 +1,16 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080", // TODO: change
+  baseURL: "http://localhost:8080", 
   withCredentials: true, 
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-
-/**
- * Login user
- * @param {string} email
- * @param {string} password
- */
-export const login = async (email, password) => {
+export const login = async (userData) => {
   try {
-    const response = await api.post("/auth/login/", {
-      email,
-      password,
-    });
+    const response = await api.post("/auth/login", userData);
     return response;
   } catch (error) {
     console.error("Login error:", error.response?.data || error.message);
@@ -27,13 +18,9 @@ export const login = async (email, password) => {
   }
 };
 
-/**
- * Register user
- * @param {object} userData
- */
 export const signup = async (userData) => {
   try {
-    const response = await api.post("/auth/signup/", userData);
+    const response = await api.post("/auth/signup/user", userData);
     return response;
   } catch (error) {
     console.error("Signup error:", error.response?.data || error.message);
@@ -41,28 +28,28 @@ export const signup = async (userData) => {
   }
 };
 
-
 export const checkAuth = async () => {
   try {
     await api.get("/auth/me");
+    console.log("sending me")
     return true;
   } catch (error) {
+    console.log(error)
     return false;
+  } finally {
+    console.log('finished me')
   }
 };
 
-/**
- * Logout user
- */
 export const logout = async () => {
   try {
-    await api.post("/auth/logout");
+    await api.get("/auth/logout");
+    return false;
   } catch (error) {
     console.error("Logout error:", error.response?.data || error.message);
     throw error;
   }
 };
-
 
 export const get = async (url) => {
   const response = await api.get(url);
@@ -84,13 +71,11 @@ export const del = async (url) => {
   return response.data;
 };
 
-
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       console.warn("Unauthorized - user not logged in or session expired");
-      // optional: redirect to login here
     }
     return Promise.reject(error);
   }
