@@ -29,7 +29,7 @@ const DesktopLayout = ({
             <Container fluid className="flex-grow-1 d-flex">
                 <Row className="flex-grow-1 w-100 my-0">
 
-                    <Col xs={2}>
+                    <Col xs={2} className="mt-4">
                         <MainSidebar 
                             isBulgarian={isBulgarian}
                             setHelperShown={setHelperSidebarShown} 
@@ -37,6 +37,7 @@ const DesktopLayout = ({
                             setMobileStyle={setMobileStyle}
                             currentComponent={currentComponent}
                             setCurrentComponent={setCurrentComponent}
+                            
                             />
                     </Col>
 

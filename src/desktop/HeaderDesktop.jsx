@@ -1,5 +1,5 @@
 import { Button, Container, Navbar } from "react-bootstrap";
-import "../style/header-desktop.css";
+import "../styles/components/header-desktop.css";
 import { logout } from "../utils/axiosApi";
 
 const HeaderDesktop = ({

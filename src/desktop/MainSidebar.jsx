@@ -20,7 +20,14 @@ import settingsWhite from "../assets/settingsWhite.svg";
 import messageBlue from "../assets/messageBlue.svg";
 import messageWhite from "../assets/messageWhite.svg";
 
-import "../style/main-sidebar.css";
+import "../styles/components/ui-floating-panel.css";
+import "../styles/components/buttons.css";
+import "../styles/components/sidebar.css";
+import "../styles/base/colors.css";
+
+
+
+
 const MainSidebar = ({
     isBulgarian,
     setHelperShown,
@@ -30,6 +37,51 @@ const MainSidebar = ({
     setCurrentComponent
 }) => {
 
+    const SIDEBAR_ITEMS = [
+  {
+    id: appComponentStates.Home,
+    labelBG: "Новини",
+    labelEN: "Feed",
+    icon: { blue: homeBlue, white: homeWhite },
+    showHelper: false,
+  },
+  {
+    id: appComponentStates.Messages,
+    labelBG: "Съобщения",
+    labelEN: "Messages",
+    icon: { blue: messageBlue, white: messageWhite },
+    showHelper: true,
+  },
+  {
+    id: appComponentStates.Friends,
+    labelBG: "Приятели",
+    labelEN: "Friends",
+    icon: { blue: friendsBlue, white: friendsWhite },
+    showHelper: true,
+  },
+  {
+    id: appComponentStates.Groups,
+    labelBG: "Групи",
+    labelEN: "Groups",
+    icon: { blue: groupsBlue, white: groupsWhite },
+    showHelper: false,
+  },
+  {
+    id: appComponentStates.Personal,
+    labelBG: "Профил",
+    labelEN: "Profile",
+    icon: { blue: personalBlue, white: personalWhite },
+    showHelper: false,
+  },
+  {
+    id: appComponentStates.Settings,
+    labelBG: "Настройки",
+    labelEN: "Settings",
+    icon: { blue: settingsBlue, white: settingsWhite },
+    showHelper: false,
+  },
+];
+
     const [hovered, setHovered] = useState(null);
 
     const renderIcon = (stateKey, blue, white) => {
@@ -37,119 +89,44 @@ const MainSidebar = ({
             ? white
             : blue;
     };
+return (
+  <div
+    className={`
+      ui-floating-panel
+      sidebar-layout
+      ${mobileStyle ? "sidebar-layout--mobile" : "sidebar-layout--desktop"}
+    `}
+  >
+    {SIDEBAR_ITEMS.map((item) => {
+      const isActive = currentComponent === item.id;
 
-    return (
-        <div className={`sidebar-container d-grid mt-3 pt-3 pb-5 ${mobileStyle ? "gap-3" : "gap-1"}`}>
+      return (
+        <Button
+          key={item.id}
+          className={`
+            ui-panel-button
+            ${mobileStyle ? "ui-panel-button--mobile" : "ui-panel-button--desktop"}
+            ${isActive ? "ui-panel-button--active" : ""}
+          `}
+          onClick={() => {
+            setHelperShown(item.showHelper);
+            setCurrentComponent(item.id);
+          }}
+          onMouseEnter={() => setHovered(item.id)}
+          onMouseLeave={() => setHovered(null)}
+        >
+          <img
+            src={renderIcon(item.id, item.icon.blue, item.icon.white)}
+            alt={isBulgarian ? item.labelBG : item.labelEN}
+            className="icon"
+          />
 
-            <Button
-                className={`text-start sidebar-btn ${mobileStyle ? "mobile" : "desktop"} 
-                    ${currentComponent === appComponentStates.Home ? "active" : ""}`}
-                onClick={() => {
-                    setHelperShown(false);
-                    setCurrentComponent(appComponentStates.Home);
-                }}
-                onMouseEnter={() => setHovered(appComponentStates.Home)}
-                onMouseLeave={() => setHovered(null)}
-            >
-                <img
-                    src={renderIcon(appComponentStates.Home, homeBlue, homeWhite)}
-                    alt="Home"
-                    className="icon"
-                />
-                {isBulgarian ? "Новини" : "Feed"}
-            </Button>
-
-            <Button
-                className={`text-start sidebar-btn ${mobileStyle ? "mobile" : "desktop"} 
-                    ${currentComponent === appComponentStates.Messages ? "active" : ""}`}
-                onClick={() => {
-                    setHelperShown(true);
-                    setCurrentComponent(appComponentStates.Messages);
-                }}
-                onMouseEnter={() => setHovered(appComponentStates.Messages)}
-                onMouseLeave={() => setHovered(null)}
-            >
-                <img
-                    src={renderIcon(appComponentStates.Messages, messageBlue, messageWhite)}
-                    alt="Messages"
-                    className="icon"
-                />
-                {isBulgarian ? "Съобщения" : "Messages"}
-            </Button>
-
-            <Button
-                className={`text-start sidebar-btn ${mobileStyle ? "mobile" : "desktop"} 
-                    ${currentComponent === appComponentStates.Friends ? "active" : ""}`}
-                onClick={() => {
-                    setHelperShown(true);
-                    setCurrentComponent(appComponentStates.Friends);
-                }}
-                onMouseEnter={() => setHovered(appComponentStates.Friends)}
-                onMouseLeave={() => setHovered(null)}
-            >
-                <img
-                    src={renderIcon(appComponentStates.Friends, friendsBlue, friendsWhite)}
-                    alt="Friends"
-                    className="icon"
-                />
-                {isBulgarian ? "Приятели" : "Friends"}
-            </Button>
-
-            <Button
-                className={`text-start sidebar-btn ${mobileStyle ? "mobile" : "desktop"} 
-                    ${currentComponent === appComponentStates.Groups ? "active" : ""}`}
-                onClick={() => {
-                    setHelperShown(false);
-                    setCurrentComponent(appComponentStates.Groups);
-                }}
-                onMouseEnter={() => setHovered(appComponentStates.Groups)}
-                onMouseLeave={() => setHovered(null)}
-            >
-                <img
-                    src={renderIcon(appComponentStates.Groups, groupsBlue, groupsWhite)}
-                    alt="Groups"
-                    className="icon"
-                />
-                {isBulgarian ? "Групи" : "Groups"}
-            </Button>
-
-            <Button
-                className={`text-start sidebar-btn ${mobileStyle ? "mobile" : "desktop"} 
-                    ${currentComponent === appComponentStates.Personal ? "active" : ""}`}
-                onClick={() => {
-                    setHelperShown(false);
-                    setCurrentComponent(appComponentStates.Personal);
-                }}
-                onMouseEnter={() => setHovered(appComponentStates.Personal)}
-                onMouseLeave={() => setHovered(null)}
-            >
-                <img
-                    src={renderIcon(appComponentStates.Personal, personalBlue, personalWhite)}
-                    alt="Personal"
-                    className="icon"
-                />
-                {isBulgarian ? "Профил" : "Profile"}
-            </Button>
-
-            <Button
-                className={`text-start sidebar-btn ${mobileStyle ? "mobile" : "desktop"} 
-                    ${currentComponent === appComponentStates.Settings ? "active" : ""}`}
-                onClick={() => {
-                    setHelperShown(false);
-                    setCurrentComponent(appComponentStates.Settings);
-                }}
-                onMouseEnter={() => setHovered(appComponentStates.Settings)}
-                onMouseLeave={() => setHovered(null)}
-            >
-                <img
-                    src={renderIcon(appComponentStates.Settings, settingsBlue, settingsWhite)}
-                    alt="Settings"
-                    className="icon"
-                />
-                {isBulgarian ? "Настройки" : "Settings"}
-            </Button>
-        </div>
-    );
+          {isBulgarian ? item.labelBG : item.labelEN}
+        </Button>
+      );
+    })}
+  </div>
+);
 };
 
 export default MainSidebar;

@@ -1,0 +1,12 @@
+.sidebar-layout {
+  display: grid;
+  gap: 1rem;
+}
+
+.sidebar-layout--desktop {
+  gap: 0.75rem;
+}
+
+.sidebar-layout--mobile {
+  gap: 1rem;
+}
