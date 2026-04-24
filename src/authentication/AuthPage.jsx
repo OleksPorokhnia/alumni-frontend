@@ -20,15 +20,8 @@ function AuthPage(){
     const login = async () => {
         try{
             const response = await authApi.post("auth/login", user)
-        }catch(error){
-            console.log("Errors during login ", error.response.data)
-            setError(error.response.data);
-        }
-    }
-
-    const loginViaGoogle = async () => {
-        try{
-            const response = await authApi.get("auth/login/google")
+            console.log(response.data)
+            localStorage.setItem("email", response.data);
         }catch(error){
             console.log("Errors during login ", error.response.data)
             setError(error.response.data);

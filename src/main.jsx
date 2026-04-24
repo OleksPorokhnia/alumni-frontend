@@ -10,6 +10,7 @@ import MessageBox from './desktop/chat/chatbox/MessageBox.jsx';
 // , MessageApi, MessageBox 
 import SideBar from './desktop/chat/sidebar/SideBar.jsx';
 import SideBarItem from './desktop/chat/sidebar/SideBarItem.jsx';
+import MainProfile from './profile/mainProfile.jsx';
 // import './index.css';
 
 const route = createBrowserRouter([
@@ -41,7 +42,10 @@ const route = createBrowserRouter([
       path:"/dev/sidebar/item",
       element: <SideBarItem />
     },
-
+    {
+      path:"/dev/profile",
+      element: <MainProfile />
+    },
 ])
 
 createRoot(document.getElementById('root')).render(
